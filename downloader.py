@@ -30,12 +30,7 @@ def download_file():
     screen.title('Downloading...')
     ydl_opts = {
         'outtmpl': f'{user_path}/%(title)s.%(ext)s',
-        'format': 'bestaudio/best',
-        'postprocessors': [{
-            'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'mp3',
-            'preferredquality': '192',
-        }],
+        'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best',
         'progress_hooks': [progress_bar]
     }
     def download():
@@ -48,6 +43,7 @@ def download_file():
             screen.title("Invalid URL or Video not found")
     thread = threading.Thread(target=download)
     thread.start()
+
 
 def progress_bar(d):
     if d['status'] == 'downloading':
